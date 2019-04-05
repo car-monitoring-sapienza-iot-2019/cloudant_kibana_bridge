@@ -14,11 +14,12 @@ ibmcloud wsk trigger create data-inserted-trigger \
 # Create the action to be triggered with the specified script
 ibmcloud wsk action create process-change process-change.py
 
-# Map action with the trigger
+# Chain previous cerated action with cloudant "read" built-in action in a sequence
 ibmcloud wsk action create process-change-cloudant-sequence \
   --sequence ${CLOUDANT_INSTANCE}/read,process-change
 
-# Create logs
+# Map a sequence of actions with the trigger
 ibmcloud wsk rule create log-change-rule data-inserted-trigger process-change-cloudant-sequence
-# To show logs
+
+# To show logs in terminal
 ibmcloud wsk activation poll
