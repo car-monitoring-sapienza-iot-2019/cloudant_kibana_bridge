@@ -1,0 +1,35 @@
+# Create car monitoring index, and map types
+PUT car_monitoring_index
+{
+    "mappings" : {
+      "_doc":{
+        "properties":{
+                "eventType": {"type" : "text"},
+                "date" : {"type" : "date"},
+                "location" : {
+                  "type":"geo_point"
+                },
+                "throttle": {"type":"float"},
+                "rpm": {"type":"integer"},
+                "massAirFlow": {"type":"double"},
+                "speed": {"type":"integer"},
+                "engineTemperature":{"type":"float"}
+        }
+      }
+    }
+}
+
+# List all items
+GET car_monitoring_index/_search
+
+
+# Delete index
+DELETE car_monitoring_index
+
+# Delete all items
+POST car_monitoring_index/_doc/_delete_by_query
+{
+  "query":{
+    "match_all": {}
+  }
+}
