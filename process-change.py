@@ -5,7 +5,7 @@ import json
 ESUSERNAME = "YOUR_ELASTIC_USERNAME"
 ESPASSWORD = "YOUR_ELASTIC_PWD"
 
-INDEX = "car_monitoring"
+INDEX = "car_monitoring_index"
 TYPE = "_doc"
 PORT = "9243"
 HOST = "KIBANA_SERVER_URL"
@@ -22,7 +22,15 @@ def main(params):
 
     # Load data
     data = {}
-    data["data"] = params["data"]
+    data["date"] = params["data"]["date"]
+    data["location"] = {}
+    data["location"]["lat"] = params["data"]["location"]["lat"]
+    data["location"]["lon"] = params["data"]["location"]["lon"]
+    data["throttle"] = params["data"]["throttle"]
+    data["rpm"] = params["data"]["rpm"]
+    data["massAirFlow"] = params["data"]["massAirFlow"]
+    data["speed"] = params["data"]["speed"]
+    data["engineTemperature"] = params["data"]["engineTemperature"]
 
     # Create url
     url = "https://"+ESUSERNAME+":"+ESPASSWORD+"@"+HOST+":"+PORT+"/"+INDEX+"/"+TYPE+"/"+ID
